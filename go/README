@@ -1,11 +1,11 @@
 Running unit tests:
 
-go test -v
+  go test -v
 
 Running coverage test:
 
-go test -coverprofile=coverage.out
+  go test -coverprofile=coverage.out
 
 To present the coverage test output on web browser
 
-go tool cover -html=coverage.out
+  go tool cover -html=coverage.out
