@@ -9,3 +9,6 @@ Running coverage test:
 To present the coverage test output on web browser
 
   go tool cover -html=coverage.out
+
+Running all benchmark test (replace . with a given test for running it individually)
+  go test -bench=.
