@@ -1,0 +1,10 @@
+sample input
+a->b
+b->c
+e->f
+c->d
+f->g
+g->c
+b,g
+
+response: true
