@@ -1,0 +1,36 @@
+
+For local kafka
+
+    kafka-server-start /opt/homebrew/etc/kafka/server.properties
+
+$ kafka-console-producer --broker-list localhost:9092 --topic message-log
+> Hello
+> How's life
+In the second one initalize a consumer console for the topic 'message-log' . This will listen to the bootstrap server at port 9092 at topic 'message-log':
+$ kafka-console-consumer --bootstrap-server localhost:9092 --topic message-log --from-beginning
+Hello
+How's life
+
+----------------
+
+Incase of docker kafka, use the docler compose file in the folder
+
+I had to manually create the topic in docker kafka before executing this program
+
+$ docker exec -it <image name/ID>  bin/bash
+> /opt/bitnami/kafka/bin$ ./kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic message-log
+    
+
+
+If just want to test this in console
+    Open two terminals.
+    In the first one initialize a producer console for topic the 'message-log' . And try to send some test messages as follows:
+
+$ kafka-console-producer --bootstrap-server 127.0.0.1:9094 --topic message-log  
+> Hello
+> How's life
+
+In the second one initalize a consumer console for the topic 'message-log' . This will listen to the bootstrap server at port 9092 at topic 'message-log':
+$kafka-console-consumer --bootstrap-server 127.0.0.1:9094 --topic message-log  --from-beginning 
+Hello
+How's life

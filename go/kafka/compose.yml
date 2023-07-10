@@ -1,0 +1,45 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  kafka:
+    image: 'bitnami/kafka:latest'
+    expose:
+      - 19092
+    ports:
+      - '9092:9092'
+      - '9094:9094'
+    networks:
+      - app-tier
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+#  myapp:
+#    image: 'YOUR_APPLICATION_IMAGE'
+#    networks:
+#      - app-tier
+  kowl:
+    image: quay.io/cloudhut/kowl:master
+    ports:
+      - '9888:8080'
+    environment:
+      KAFKA_BROKERS: kafka:19092
+    depends_on:
+        - kafka
+  kouncil:
+    image: consdata/kouncil:latest
+    ports:
+      - '8888:8080'
+    environment:
+      bootstrapServer:
+        kafka:19092
+    depends_on:
+        - kafka
+
+
