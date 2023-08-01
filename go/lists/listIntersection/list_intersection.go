@@ -25,7 +25,7 @@ func DoLinkedListsIntersect(nodes []*Node, test string) bool {
 		}
 
 		//from this node go to the end of list and add all element to the map and set the value as 1
-		for dp.next != nil {
+		for dp != nil {
 			if tempMap[dp.val] == 1 {
 				return true
 			} else {
@@ -33,12 +33,12 @@ func DoLinkedListsIntersect(nodes []*Node, test string) bool {
 			}
 			dp = dp.next
 		}
-		//last node
-		if tempMap[dp.val] == 1 {
-			return true
-		} else {
-			tempMap[dp.val] = 1
-		}
+		/* 		//last node
+		   		if tempMap[dp.val] == 1 {
+		   			return true
+		   		} else {
+		   			tempMap[dp.val] = 1
+		   		} */
 
 	}
 	return false
@@ -78,7 +78,7 @@ func buildList(s, d string, allNodes []*Node) []*Node {
 		//if both source and dest are found once the link is made, check if from the dest we find the end of list of destination itself
 		val := dp.val
 		node := dp.next
-		for node.next != nil {
+		for node != nil {
 			if node.val == val { //if we reach a node that has same value as dest its is cyclic
 				fmt.Println("Error Thrown!")
 				os.Exit(0)

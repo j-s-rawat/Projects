@@ -49,10 +49,11 @@ func TestSearchNodes(t *testing.T) {
 		val   string
 	}
 
+	temp := testNodes
 	c := new(Node)
 	c.val = "c"
-	testNodes[1].next = c
-	testNodes = append(testNodes, c)
+	temp[1].next = c
+	temp = append(temp, c)
 
 	tests := []struct {
 		name string
@@ -103,7 +104,7 @@ func TestDoLinkedListsIntersect(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := DoLinkedListsIntersect(tt.args.nodes, tt.args.test); got != tt.want {
-				t.Errorf("DoLinkedListsIntersect() = %v, want %v", got, tt.want)
+				t.Errorf("%s DoLinkedListsIntersect() = %v, want %v", tt.name, got, tt.want)
 			}
 		})
 	}
